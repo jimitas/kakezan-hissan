@@ -277,6 +277,10 @@ export function hissan() {
         TBL.rows[7].cells[j * 2 + addCol].classList.add("diagonal");
       }
     }
+
+    // text-boxを更新（正解の答えを表示）
+    const textBox = document.getElementById("text-box");
+    textBox.innerText = `${multiplicandNumber}×${multiplierNumber}=${collectAnswer}`;
   }
 
   // 自分の答えを更新する（テーブルから入力された数字を読み取る）
@@ -293,6 +297,23 @@ export function hissan() {
     }
     // 小数点の位置に応じて割り算して最終的な答えにする
     myAnswer /= ratio;
+
+    // text-boxを更新（式の=の後にmyAnswerを表示）
+    const textBox = document.getElementById("text-box");
+    // NaNが発生した場合（答えを見た後に数字をドラッグした場合など）
+    if (isNaN(myAnswer)) {
+      textBox.innerText = `${multiplicandNumber}×${multiplierNumber}=`;
+      se.alert.currentTime = 0;
+      se.alert.play();
+      alert("「消す」をおしてから、数字をドラッグしてください。");
+      return;
+    }
+
+    if (myAnswer === 0) {
+      textBox.innerText = `${multiplicandNumber}×${multiplierNumber}=`;
+    } else {
+      textBox.innerText = `${multiplicandNumber}×${multiplierNumber}=${myAnswer}`;
+    }
   }
 
   // 答え合わせをする
