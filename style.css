@@ -1,0 +1,119 @@
+body {
+  font-size: 1.6rem;
+  font-family: "UD デジタル 教科書体 NK-B";
+}
+
+#text-box {
+  height: max(50px, 4vw);
+  line-height: max(50px, 4vw);
+  font-size: max(24px, 2.4vw);
+  letter-spacing: 0.2vw;
+  background-color: antiquewhite;
+}
+
+#answer-box {
+  width: 40vw;
+  height: max(50px, 4vw);
+  font-size: max(24px, 3vw);
+  letter-spacing: 2vw;
+  text-align: end;
+}
+
+button {
+  width: auto;
+  height: auto;
+}
+
+td {
+  width: max(50px, 3vw);
+  height: max(50px, 3vw);
+  padding: 0px;
+  text-align: center;
+  vertical-align: middle;
+  border-bottom: dotted gray 1px;
+  border-left: dotted gray 1px;
+}
+
+.num {
+  width: max(50px, 2.8vw);
+  height: max(50px, 2.8vw);
+  line-height: max(50px, 2.8vw);
+  border: solid 1px black;
+  border-radius: 10%;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+td .num{
+  margin:auto;
+}
+tr:nth-child(1) td {
+  border-top: dotted gray 1px;
+}
+
+tr:nth-child(2) td,
+tr:nth-child(6) td {
+  border-bottom: solid black 1px;
+}
+
+td:last-child {
+  border-right: dotted gray 1px;
+}
+
+tr:nth-child(3) td,
+tr:nth-child(5) td,
+tr:nth-child(7) td {
+  height: 20px;
+  font-size: 8px;
+}
+
+tr:nth-child(3) div,
+tr:nth-child(5) div,
+tr:nth-child(7) div {
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  font-size: 10px;
+  margin:auto;
+}
+
+/* 便宜上テーブルセルの２列目を非表示にする。*/
+td:nth-child(2) {
+  width: 0px;
+  border-left: none;
+  vertical-align: bottom;
+}
+
+td:nth-child(4),
+td:nth-child(6),
+td:nth-child(8) {
+  width: 0px;
+  border-left: none;
+  vertical-align: bottom;
+}
+
+.diagonal {
+  background-image: linear-gradient(
+    to right top,
+    transparent calc(50% - 0.5px),
+    red 50%,
+    red calc(50% + 0.5px),
+    transparent calc(50% + 1px)
+  ) !important;
+}
+
+img {
+  width: 3vw;
+  height: 3vw;
+  margin: 0.1vw;
+}
+
+@media screen and (max-width: 480px) {
+  /* 480px以下に適用されるCSS（スマホ用） */
+
+  .btn {
+    font-size: 12px;
+  }
+
+}
