@@ -109,6 +109,15 @@ img {
   margin: 0.1vw;
 }
 
+#score-pallet {
+  max-height: 150px; /* コイン表示エリアの最大高さを150pxに制限 */
+  overflow-y: auto; /* 縦方向にスクロール可能にする */
+  border: 2px solid #ddd; /* 境界線を追加（エリアを視覚的にわかりやすく） */
+  border-radius: 8px; /* 角を丸くする */
+  padding: 10px; /* 内側に余白を追加 */
+  background-color: #f8f9fa; /* 背景色を薄いグレーに */
+}
+
 @media screen and (max-width: 480px) {
   /* 480px以下に適用されるCSS（スマホ用） */
 
