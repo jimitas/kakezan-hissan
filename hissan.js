@@ -94,7 +94,9 @@ export function hissan() {
     // 答えの決定
     collectAnswer = multiplicandNumber * multiplierNumber;
     // JavaScriptの浮動小数点演算の誤差を修正するため、一度整数化してから小数に戻す
-    const ratio = multiplicandDigitRatio[selectIndex] * multiplicandDigitRatio[selectIndex];
+    // ratio = 被乗数のレート × 乗数のレート（例：0.12×0.3なら100×10=1000）
+    // 修正履歴：以前は multiplicandDigitRatio を2回乗算していたが、理論的に正しい計算に修正
+    const ratio = multiplicandDigitRatio[selectIndex] * multiplierDigitRatio[selectIndex];
     collectAnswer = Math.round(collectAnswer * ratio) / ratio;
 
     collectAnswerArray.push(...String(collectAnswer));
