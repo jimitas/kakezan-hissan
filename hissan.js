@@ -29,6 +29,7 @@ export function hissan() {
   createCalcTable();
   rewriteTable();
   numberSet();
+  loadCoins(); // ページ読み込み時にコインを復元
 
   const select = document.getElementById("select_question_mode");
   select.addEventListener("change", () => {
@@ -332,9 +333,7 @@ export function hissan() {
     if (myAnswer == collectAnswer) {
       se.seikai2.currentTime = 0;
       se.seikai2.play();
-      const img = document.createElement("img");
-      img.src = "./images/coin.png";
-      document.getElementById("score-pallet").appendChild(img);
+      addCoin(); // コインを追加してローカルストレージに保存
       alert("正解");
       mondai_flag = false;
     } else {
@@ -455,4 +454,47 @@ export function hissan() {
     numberSet();
     myAnswerUpdate();
   }
+
+  // ローカルストレージからコイン数を読み込み、画面に表示
+  function loadCoins() {
+    const savedCoins = localStorage.getItem("coinCount");
+    const coinCount = savedCoins ? parseInt(savedCoins, 10) : 0;
+    const scorePallet = document.getElementById("score-pallet");
+
+    // 保存されているコイン数だけコイン画像を表示
+    for (let i = 0; i < coinCount; i++) {
+      const img = document.createElement("img");
+      img.src = "./images/coin.png";
+      scorePallet.appendChild(img);
+    }
+  }
+
+  // コインを1枚追加してローカルストレージに保存
+  function addCoin() {
+    const img = document.createElement("img");
+    img.src = "./images/coin.png";
+    document.getElementById("score-pallet").appendChild(img);
+
+    // 現在のコイン数を取得して+1
+    const savedCoins = localStorage.getItem("coinCount");
+    const coinCount = savedCoins ? parseInt(savedCoins, 10) : 0;
+    localStorage.setItem("coinCount", coinCount + 1);
+  }
+
+  // コインをリセット（確認アラート付き）
+  const btnResetCoins = document.getElementById("btn-reset-coins");
+  btnResetCoins.addEventListener("click", () => {
+    se.alert.currentTime = 0;
+    se.alert.play();
+    const confirmed = confirm("コインが消えてしまいますが、本当にリセットしますか？");
+    if (confirmed) {
+      // ローカルストレージをクリア
+      localStorage.removeItem("coinCount");
+      // 画面上のコインを全て削除
+      const scorePallet = document.getElementById("score-pallet");
+      scorePallet.innerHTML = "";
+      se.reset.play();
+      alert("コインをリセットしました。");
+    }
+  });
 }
