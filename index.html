@@ -14,29 +14,29 @@
     <script type="module" src="index.js"></script>
   </head>
   <body>
-    <div class="h2 text-center m-2">算数　かけ算の筆算練習アプリ</div>
+    <div class="h4 text-center my-1">算数　かけ算の筆算練習アプリ</div>
 
-    <div class="mx-auto my-2 w-75 bg-body-secondary">
-      <div class="h6 mx-2 mb-0 lh-lg text-center">問題の種類を選んでください。</div>
+    <div class="mx-auto my-1 w-75 bg-body-secondary py-1">
+      <div class="h6 mx-2 mb-0 text-center">問題の種類を選んでください。</div>
       <div class="mx-2 d-flex justify-content-center">
-        <select id="select_question_mode" class="w-sm-25 mb-3 ps-3 form-select text-start"></select>
+        <select id="select_question_mode" class="w-sm-25 mb-2 ps-3 form-select text-start"></select>
       </div>
     </div>
 
     <div id="buttons" class="d-flex flex-wrap justify-content-center">
-      <button type="button" id="btn-question" class="m-2 btn btn-danger">問題</button>
-      <button type="button" id="btn-check" class="m-2 me-2 btn btn-primary">答え合わせ</button>
+      <button type="button" id="btn-question" class="m-1 btn btn-danger btn-sm">問題</button>
+      <button type="button" id="btn-check" class="m-1 btn btn-primary btn-sm">答え合わせ</button>
     </div>
 
-    <div class="mx-auto my-2 text-center">
+    <div class="mx-auto my-1 text-center">
       <div id="text-box" class="mx-auto w-75 text-center"></div>
     </div>
 
-    <div class="mx-auto w-75 my-2 text-center">
+    <div class="mx-auto w-75 my-1 text-center">
       <table id="calc-table" class="mx-auto text-center"></table>
     </div>
 
-    <div id="text-box2" class="h6" style="height: 20px; text-align: center"></div>
+    <div id="text-box2" class="h6" style="height: 15px; text-align: center"></div>
 
     <div class="d-flex justify-content-center">
       <div class="w-25"></div>
@@ -50,16 +50,16 @@
       <!-- <button type="button" id="btn-info" class="m-2 btn btn-info" onclick="window.location.reload();">
         再読み込み
       </button> -->
-      <button type="button" id="btn-showAnswer" class="m-2 btn btn-success">答えを見る</button>
-      <button type="button" id="btn-clear" class="m-2 btn btn-secondary">消す</button>
-      <button type="button" id="btn-hint" class="m-2 btn btn-info">ヒント</button>
+      <button type="button" id="btn-showAnswer" class="m-1 btn btn-success btn-sm">答えを見る</button>
+      <button type="button" id="btn-clear" class="m-1 btn btn-secondary btn-sm">消す</button>
+      <button type="button" id="btn-hint" class="m-1 btn btn-info btn-sm">ヒント</button>
     </div>
 
-    <div class="d-flex justify-content-center">
+    <div class="d-flex justify-content-center my-1">
       <div id="score-pallet" class="w-75 d-flex justify-content-left flex-wrap"></div>
     </div>
 
-    <div class="d-flex justify-content-center mt-2">
+    <div class="d-flex justify-content-center">
       <button type="button" id="btn-reset-coins" class="btn btn-warning btn-sm">コインをリセット</button>
     </div>
 

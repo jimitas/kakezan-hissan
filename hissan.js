@@ -481,20 +481,37 @@ export function hissan() {
     localStorage.setItem("coinCount", coinCount + 1);
   }
 
-  // コインをリセット（確認アラート付き）
+  // コインをリセット（計算問題による確認付き）
   const btnResetCoins = document.getElementById("btn-reset-coins");
   btnResetCoins.addEventListener("click", () => {
     se.alert.currentTime = 0;
     se.alert.play();
-    const confirmed = confirm("コインが消えてしまいますが、本当にリセットしますか？");
-    if (confirmed) {
+
+    // 3桁×2桁のランダムな計算問題を生成
+    const num1 = Math.floor(Math.random() * 900) + 100; // 100-999の3桁
+    const num2 = Math.floor(Math.random() * 90) + 10;   // 10-99の2桁
+    const correctAnswer = num1 * num2;
+
+    const userAnswer = prompt(`コインをリセットするには、次の計算問題を解いてください。\n\n${num1} × ${num2} = ?`);
+
+    // キャンセルした場合
+    if (userAnswer === null) {
+      return;
+    }
+
+    // 答えが正しいかチェック
+    if (parseInt(userAnswer, 10) === correctAnswer) {
       // ローカルストレージをクリア
       localStorage.removeItem("coinCount");
       // 画面上のコインを全て削除
       const scorePallet = document.getElementById("score-pallet");
       scorePallet.innerHTML = "";
       se.reset.play();
-      alert("コインをリセットしました。");
+      alert("正解です！コインをリセットしました。");
+    } else {
+      se.alert.currentTime = 0;
+      se.alert.play();
+      alert(`不正解です。正しい答えは ${correctAnswer} でした。\nコインはリセットされませんでした。`);
     }
   });
 }

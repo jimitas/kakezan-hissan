@@ -1,12 +1,15 @@
 body {
   font-size: 1.6rem;
   font-family: "UD デジタル 教科書体 NK-B";
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* 横スクロールを防止 */
 }
 
 #text-box {
-  height: max(50px, 4vw);
-  line-height: max(50px, 4vw);
-  font-size: max(24px, 2.4vw);
+  height: max(40px, 3.5vw);
+  line-height: max(40px, 3.5vw);
+  font-size: max(20px, 2vw);
   letter-spacing: 0.2vw;
   background-color: antiquewhite;
 }
@@ -110,12 +113,75 @@ img {
 }
 
 #score-pallet {
-  max-height: 150px; /* コイン表示エリアの最大高さを150pxに制限 */
+  max-height: 10vw; /* コイン3段分が表示できる高さ（コイン3vw×3 + 余白） */
   overflow-y: auto; /* 縦方向にスクロール可能にする */
   border: 2px solid #ddd; /* 境界線を追加（エリアを視覚的にわかりやすく） */
   border-radius: 8px; /* 角を丸くする */
-  padding: 10px; /* 内側に余白を追加 */
+  padding: 5px; /* 内側に余白を追加 */
   background-color: #f8f9fa; /* 背景色を薄いグレーに */
+  min-height: 4vw; /* 最小高さを設定 */
+}
+
+/* タブレット用（iPad等）の最適化 */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  body {
+    font-size: 1.4rem;
+  }
+
+  #text-box {
+    height: max(35px, 3vw);
+    line-height: max(35px, 3vw);
+    font-size: max(18px, 1.8vw);
+  }
+
+  td {
+    width: max(45px, 2.8vw);
+    height: max(45px, 2.8vw);
+  }
+
+  .num {
+    width: max(45px, 2.6vw);
+    height: max(45px, 2.6vw);
+    line-height: max(45px, 2.6vw);
+  }
+
+  #score-pallet {
+    max-height: 10vw; /* タブレットでもコイン3段分を表示 */
+  }
+}
+
+/* デスクトップ用（1025px以上）の最適化 */
+@media screen and (min-width: 1025px) {
+  body {
+    font-size: 1.4rem;
+  }
+
+  #text-box {
+    height: 40px;
+    line-height: 40px;
+    font-size: 22px;
+  }
+
+  td {
+    width: 50px;
+    height: 50px;
+  }
+
+  .num {
+    width: 48px;
+    height: 48px;
+    line-height: 48px;
+  }
+
+  img {
+    width: 35px;
+    height: 35px;
+    margin: 2px;
+  }
+
+  #score-pallet {
+    max-height: 10vw; /* デスクトップでもコイン3段分を表示（vw基準） */
+  }
 }
 
 @media screen and (max-width: 480px) {
