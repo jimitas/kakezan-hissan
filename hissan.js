@@ -3,21 +3,25 @@ import { createCalcTable } from "./createTable.js";
 import { createSelectBox } from "./createSelectBox.js";
 
 export function hissan() {
+  // 問題タイプ別の設定（配列のインデックス0-9が各問題タイプに対応）
+  // 0:(2桁)×(1桁), 1:(3桁)×(1桁), 2:(2桁)×(2桁), 3:(3桁)×(2桁)
+  // 4:小数(○.○)×(1桁), 5:小数(○.○○)×(1桁), 6:小数(○.○)×(2桁), 7:小数(○.○○)×(2桁)
+  // 8:小数(○.○)×小数(○.○), 9:小数(○.○○)×小数(○.○)
   const multiplicandDigit = [2, 3, 2, 3, 2, 3, 2, 3, 2, 3]; //被乗数の桁数
   const multiplierDigit = [1, 1, 2, 2, 1, 1, 2, 2, 2, 2]; //乗数の桁数
-  const multiplicandDigitRatio = [1, 1, 1, 1, 10, 100, 10, 100, 10, 100]; //被乗数の小数化へのレート
-  const multiplierDigitRatio = [1, 1, 1, 1, 1, 1, 1, 1, 10, 10]; //乗数の小数化へのレート
+  const multiplicandDigitRatio = [1, 1, 1, 1, 10, 100, 10, 100, 10, 100]; //被乗数を整数に戻すためのレート（例：0.12→12なら100）
+  const multiplierDigitRatio = [1, 1, 1, 1, 1, 1, 1, 1, 10, 10]; //乗数を整数に戻すためのレート
 
-  let selectIndex = 0;
-  let multiplicandNumber = 0; //被乗数
-  let multiplierNumber = 0; //乗数
-  let collectAnswer = 0;
-  let multiplicandNumberArray = [];
-  let multiplierNumberArray = []; //乗数
-  let collectAnswerArray = [];
-  let myAnswer = 0;
+  let selectIndex = 0; //選択されている問題タイプ（0-9）
+  let multiplicandNumber = 0; //被乗数（かけられる数）
+  let multiplierNumber = 0; //乗数（かける数）
+  let collectAnswer = 0; //正解の答え
+  let multiplicandNumberArray = []; //被乗数を文字列化した配列（小数点含む）
+  let multiplierNumberArray = []; //乗数を文字列化した配列（小数点含む）
+  let collectAnswerArray = []; //正解の答えを文字列化した配列（小数点含む）
+  let myAnswer = 0; //生徒が入力した答え
   let mondai_flag = false; //問題を出したかどうかのフラグ判定
-  let hint_flag = false; //ヒントを出すかどうかの判定
+  let hint_flag = false; //ヒントを出しているかどうかの判定
 
   const TBL = document.getElementById("calc-table");
 
@@ -89,8 +93,9 @@ export function hissan() {
 
     // 答えの決定
     collectAnswer = multiplicandNumber * multiplierNumber;
+    // JavaScriptの浮動小数点演算の誤差を修正するため、一度整数化してから小数に戻す
     const ratio = multiplicandDigitRatio[selectIndex] * multiplicandDigitRatio[selectIndex];
-    collectAnswer = Math.round(collectAnswer * ratio) / ratio; //誤差の修正
+    collectAnswer = Math.round(collectAnswer * ratio) / ratio;
 
     collectAnswerArray.push(...String(collectAnswer));
 
@@ -218,11 +223,11 @@ export function hissan() {
   function hintWrite() {
     // かける数が２桁の場合は筆算１段目、２段目を記述する。
     if (multiplierDigit[selectIndex] !== 1) {
-      // 筆算のため、レートをかけて整数化
+      // 筆算のため、レートをかけて整数化（例：1.2→12, 0.34→34）
       const numA = multiplicandNumber * multiplicandDigitRatio[selectIndex];
       const numB = multiplierNumber * multiplierDigitRatio[selectIndex];
 
-      // 筆算１段目の記述
+      // 筆算１段目の記述（一の位との掛け算）
       let partOfAnswer_1 = Math.round(numA * (numB % 10)); //誤差も修正
       const partOfAnswer_1_array = [];
       partOfAnswer_1_array.push(...String(partOfAnswer_1));
@@ -231,7 +236,7 @@ export function hissan() {
         TBL.rows[3].cells[j * 2 + addCol].innerText = partOfAnswer_1_array[j];
       }
 
-      // 筆算２段目の記述
+      // 筆算２段目の記述（十の位との掛け算）
       let partOfAnswer_2 = Math.round(numA * Math.floor(numB / 10)); //誤差も修正
       const partOfAnswer_2_array = [];
       partOfAnswer_2_array.push(...String(partOfAnswer_2));
@@ -272,17 +277,19 @@ export function hissan() {
     }
   }
 
-  // 自分の答えを更新する
+  // 自分の答えを更新する（テーブルから入力された数字を読み取る）
   function myAnswerUpdate() {
     myAnswer = 0;
     let ratio = 1;
-    // 小数点の位置によってレートを決める。
+    // 小数点の位置によってレートを決める（小数点がどこにあるかで割る数を変える）
     for (let j = 0; j < 3; j++) {
       if (TBL.rows[7].cells[j * 2 + 3].innerText === ".") ratio = 10 ** (3 - j);
     }
+    // テーブルの各セルから数字を読み取り、整数として組み立てる
     for (let j = 0; j < 5; j++) {
       myAnswer += Number(TBL.rows[7].cells[j * 2].innerText) * 10 ** (4 - j);
     }
+    // 小数点の位置に応じて割り算して最終的な答えにする
     myAnswer /= ratio;
   }
 

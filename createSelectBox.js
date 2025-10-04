@@ -1,5 +1,5 @@
 
-export function createSelectBox(selectIndex) {
+export function createSelectBox() {
 
   const questionMode = [
     "(２けた)×(１けた)",
