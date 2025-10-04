@@ -53,7 +53,6 @@ export function hissan() {
   function questionCreate() {
     mondai_flag = true;
     hint_flag = false;
-    console.log(mondai_flag);
     se.set.currentTime = 0;
     se.set.play();
     multiplicandNumber = 0; //被乗数の初期化
@@ -76,7 +75,7 @@ export function hissan() {
     multiplicandNumber /= multiplicandDigitRatio[selectIndex];
     multiplicandNumberArray.push(...String(multiplicandNumber));
 
-    // 被乗数の決定
+    // 乗数の決定
     for (let i = 0; i < multiplierDigit[selectIndex]; i++) {
       // 整数の最上位、小数の最下位の数は0にしない。
       if ((selectIndex < 8 && i === multiplierDigit[selectIndex] - 1) || (selectIndex >= 8 && i === 0)) {
