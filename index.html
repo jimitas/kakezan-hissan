@@ -1,113 +1,119 @@
 <!DOCTYPE html>
 <html lang="ja">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- SEO対策: タイトル -->
-    <title>かけ算の筆算練習アプリ | 小学生向け無料学習ツール</title>
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-V7FFVN1PPN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-V7FFVN1PPN');
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- SEO対策: メタディスクリプション -->
-    <meta name="description" content="小学3〜5年生向けのかけ算の筆算を楽しく学べる無料Webアプリ。ドラッグ&ドロップで直感的に操作でき、正解するとコインが貯まるゲーミフィケーション要素で学習意欲を高めます。10種類の問題モード、ヒント機能、タブレット最適化対応。" />
+  <!-- SEO対策: タイトル -->
+  <title>かけ算の筆算練習アプリ | 小学生向け無料学習ツール</title>
 
-    <!-- SEO対策: キーワード -->
-    <meta name="keywords" content="かけ算,筆算,小学生,算数,学習アプリ,無料,教育,ドリル,練習問題,小数,掛け算,オンライン学習,タブレット学習,自主学習,宿題サポート,2桁×2桁,3桁×2桁" />
+  <!-- SEO対策: メタディスクリプション -->
+  <meta name="description" content="小学3〜5年生向けのかけ算の筆算を楽しく学べる無料Webアプリ。ドラッグ&ドロップで直感的に操作でき、正解するとコインが貯まるゲーミフィケーション要素で学習意欲を高めます。10種類の問題モード、ヒント機能、タブレット最適化対応。" />
 
-    <!-- SEO対策: 著者 -->
-    <meta name="author" content="Jimitas" />
+  <!-- SEO対策: キーワード -->
+  <meta name="keywords" content="かけ算,筆算,小学生,算数,学習アプリ,無料,教育,ドリル,練習問題,小数,掛け算,オンライン学習,タブレット学習,自主学習,宿題サポート,2桁×2桁,3桁×2桁" />
 
-    <!-- SEO対策: 言語 -->
-    <meta http-equiv="content-language" content="ja" />
+  <!-- SEO対策: 著者 -->
+  <meta name="author" content="Jimitas" />
 
-    <!-- OGP対策: Facebook等のSNSシェア用 -->
-    <!-- Netlify (https://kakezan-hissan.netlify.app/) をメインURLとして使用 -->
-    <meta property="og:title" content="かけ算の筆算練習アプリ | 小学生向け無料学習ツール" />
-    <meta property="og:description" content="小学3〜5年生向けのかけ算の筆算を楽しく学べる無料Webアプリ。ドラッグ&ドロップで直感的に操作、コインが貯まるゲーミフィケーション要素で楽しく学習。" />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://kakezan-hissan.netlify.app/images/kake-hissan.png" />
-    <meta property="og:site_name" content="かけ算の筆算練習アプリ" />
-    <meta property="og:locale" content="ja_JP" />
+  <!-- SEO対策: 言語 -->
+  <meta http-equiv="content-language" content="ja" />
 
-    <!-- Twitter Card対策 -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="かけ算の筆算練習アプリ | 小学生向け無料学習ツール" />
-    <meta name="twitter:description" content="小学3〜5年生向けのかけ算の筆算を楽しく学べる無料Webアプリ。" />
-    <meta name="twitter:image" content="https://kakezan-hissan.netlify.app/images/kake-hissan.png" />
+  <!-- OGP対策: Facebook等のSNSシェア用 -->
+  <!-- Netlify (https://kakezan-hissan.netlify.app/) をメインURLとして使用 -->
+  <meta property="og:title" content="かけ算の筆算練習アプリ | 小学生向け無料学習ツール" />
+  <meta property="og:description" content="小学3〜5年生向けのかけ算の筆算を楽しく学べる無料Webアプリ。ドラッグ&ドロップで直感的に操作、コインが貯まるゲーミフィケーション要素で楽しく学習。" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://kakezan-hissan.netlify.app/images/kake-hissan.png" />
+  <meta property="og:site_name" content="かけ算の筆算練習アプリ" />
+  <meta property="og:locale" content="ja_JP" />
 
-    <!-- Canonical URL: Netlifyと併用する場合は、好みのURLに変更してください -->
-    <link rel="canonical" href="https://kakezan-hissan.netlify.app/" />
+  <!-- Twitter Card対策 -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="かけ算の筆算練習アプリ | 小学生向け無料学習ツール" />
+  <meta name="twitter:description" content="小学3〜5年生向けのかけ算の筆算を楽しく学べる無料Webアプリ。" />
+  <meta name="twitter:image" content="https://kakezan-hissan.netlify.app/images/kake-hissan.png" />
 
-    <!-- モバイル対応 -->
-    <meta name="theme-color" content="#0d6efd" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-    <meta name="apple-mobile-web-app-title" content="かけ算の筆算" />
+  <!-- Canonical URL: Netlifyと併用する場合は、好みのURLに変更してください -->
+  <link rel="canonical" href="https://kakezan-hissan.netlify.app/" />
 
-    <!-- ロボット対策 -->
-    <meta name="robots" content="index, follow" />
+  <!-- モバイル対応 -->
+  <meta name="theme-color" content="#0d6efd" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="かけ算の筆算" />
 
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="style.css" />
-    <script type="module" src="index.js"></script>
-  </head>
-  <body>
-    <div class="h4 text-center my-1">算数　かけ算の筆算練習アプリ</div>
+  <!-- ロボット対策 -->
+  <meta name="robots" content="index, follow" />
 
-    <div class="mx-auto my-1 w-75 bg-body-secondary py-1">
-      <div class="h6 mx-2 mb-0 text-center">問題の種類を選んでください。</div>
-      <div class="mx-2 d-flex justify-content-center">
-        <select id="select_question_mode" class="w-sm-25 mb-2 ps-3 form-select text-start"></select>
-      </div>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous" />
+  <link rel="stylesheet" href="style.css" />
+  <script type="module" src="index.js"></script>
+</head>
+
+<body>
+  <div class="h4 text-center my-1">算数　かけ算の筆算練習アプリ</div>
+
+  <div class="mx-auto my-1 w-75 bg-body-secondary py-1">
+    <div class="h6 mx-2 mb-0 text-center">問題の種類を選んでください。</div>
+    <div class="mx-2 d-flex justify-content-center">
+      <select id="select_question_mode" class="w-sm-25 mb-2 ps-3 form-select text-start"></select>
     </div>
+  </div>
 
-    <div id="buttons" class="d-flex flex-wrap justify-content-center">
-      <button type="button" id="btn-question" class="m-1 btn btn-danger btn-sm">問題</button>
-      <button type="button" id="btn-check" class="m-1 btn btn-primary btn-sm">答え合わせ</button>
+  <div id="buttons" class="d-flex flex-wrap justify-content-center">
+    <button type="button" id="btn-question" class="m-1 btn btn-danger btn-sm">問題</button>
+    <button type="button" id="btn-check" class="m-1 btn btn-primary btn-sm">答え合わせ</button>
+  </div>
+
+  <div class="mx-auto my-1 text-center">
+    <div id="text-box" class="mx-auto w-75 text-center"></div>
+  </div>
+
+  <div class="mx-auto w-75 my-1 text-center">
+    <table id="calc-table" class="mx-auto text-center"></table>
+  </div>
+
+  <div id="text-box2" class="h6" style="height: 15px; text-align: center"></div>
+
+  <div class="d-flex justify-content-center">
+    <div class="w-25"></div>
+    <div id="num-pallet" class="mx-auto w-75 d-flex flex-wrap justify-content-center droppable-elem"></div>
+    <div class="w-25 d-flex flex-wrap justify-content-left">
+      <img src="./images/gomibako.png" style="width: 60px; height: 80px" class="droppable-elem" alt="" />
     </div>
+  </div>
 
-    <div class="mx-auto my-1 text-center">
-      <div id="text-box" class="mx-auto w-75 text-center"></div>
-    </div>
-
-    <div class="mx-auto w-75 my-1 text-center">
-      <table id="calc-table" class="mx-auto text-center"></table>
-    </div>
-
-    <div id="text-box2" class="h6" style="height: 15px; text-align: center"></div>
-
-    <div class="d-flex justify-content-center">
-      <div class="w-25"></div>
-      <div id="num-pallet" class="mx-auto w-75 d-flex flex-wrap justify-content-center droppable-elem"></div>
-      <div class="w-25 d-flex flex-wrap justify-content-left">
-        <img src="./images/gomibako.png" style="width: 60px; height: 80px" class="droppable-elem" alt="" />
-      </div>
-    </div>
-
-    <div id="buttons" class="d-flex flex-wrap justify-content-center">
-      <!-- <button type="button" id="btn-info" class="m-2 btn btn-info" onclick="window.location.reload();">
+  <div id="buttons" class="d-flex flex-wrap justify-content-center">
+    <!-- <button type="button" id="btn-info" class="m-2 btn btn-info" onclick="window.location.reload();">
         再読み込み
       </button> -->
-      <button type="button" id="btn-showAnswer" class="m-1 btn btn-success btn-sm">答えを見る</button>
-      <button type="button" id="btn-clear" class="m-1 btn btn-secondary btn-sm">消す</button>
-      <button type="button" id="btn-hint" class="m-1 btn btn-info btn-sm">ヒント</button>
-    </div>
+    <button type="button" id="btn-showAnswer" class="m-1 btn btn-success btn-sm">答えを見る</button>
+    <button type="button" id="btn-clear" class="m-1 btn btn-secondary btn-sm">消す</button>
+    <button type="button" id="btn-hint" class="m-1 btn btn-info btn-sm">ヒント</button>
+  </div>
 
-    <div class="d-flex justify-content-center my-1">
-      <div id="score-pallet" class="w-75 d-flex justify-content-left flex-wrap"></div>
-    </div>
+  <div class="d-flex justify-content-center my-1">
+    <div id="score-pallet" class="w-75 d-flex justify-content-left flex-wrap"></div>
+  </div>
 
-    <div class="d-flex justify-content-center">
-      <button type="button" id="btn-reset-coins" class="btn btn-warning btn-sm">コインをリセット</button>
-    </div>
+  <div class="d-flex justify-content-center">
+    <button type="button" id="btn-reset-coins" class="btn btn-warning btn-sm">コインをリセット</button>
+  </div>
 
-    <!-- howler.jsの読み込み -->
-    <script src="howler.min.js"></script>
+  <!-- howler.jsの読み込み -->
+  <script src="howler.min.js"></script>
 
-    <!-- <script src="main.js"></script> -->
-  </body>
+  <!-- <script src="main.js"></script> -->
+</body>
+
 </html>
