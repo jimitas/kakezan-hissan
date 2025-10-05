@@ -164,7 +164,8 @@ td {
   border-left: dotted gray 1px;
 }
 
-/* 1桁かける場合：4-6行目を非表示 */
+/* 1桁かける場合：3-6行目を非表示（2桁目の計算は不要） */
+#calc-table.multiplier-1digit tr:nth-child(3) td,
 #calc-table.multiplier-1digit tr:nth-child(4) td,
 #calc-table.multiplier-1digit tr:nth-child(5) td,
 #calc-table.multiplier-1digit tr:nth-child(6) td {
@@ -172,9 +173,18 @@ td {
   border-bottom: none !important;
 }
 
-/* 2桁かける場合：正方形を保つ */
+/* 1桁かける場合：7行目の繰り上がりは20px */
+#calc-table.multiplier-1digit tr:nth-child(7) td {
+  height: 20px;
+  max-height: 20px;
+  overflow: hidden;
+  line-height: 1;
+}
+
+/* 2桁かける場合：繰り上がり行（3,5,7行目）を20px */
 #calc-table.multiplier-2digit tr:nth-child(3) td,
-#calc-table.multiplier-2digit tr:nth-child(5) td {
+#calc-table.multiplier-2digit tr:nth-child(5) td,
+#calc-table.multiplier-2digit tr:nth-child(7) td {
   height: 20px;
   max-height: 20px;
   overflow: hidden;
@@ -224,10 +234,10 @@ td:last-child {
   border-right: dotted gray 1px;
 }
 
+/* 繰り上がり行の高さはクラスベースで制御（168-174, 177-182行目参照） */
 tr:nth-child(3) td,
 tr:nth-child(5) td,
 tr:nth-child(7) td {
-  height: 20px;
   font-size: 8px;
 }
 

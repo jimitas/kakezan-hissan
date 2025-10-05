@@ -22,6 +22,7 @@ export function hissan() {
   let myAnswer = 0; //生徒が入力した答え
   let mondai_flag = false; //問題を出したかどうかのフラグ判定
   let hint_flag = false; //ヒントを出しているかどうかの判定
+  let showed_answer_flag = false; //答えを見たかどうかのフラグ判定
 
   const TBL = document.getElementById("calc-table");
 
@@ -74,6 +75,11 @@ export function hissan() {
   const btnClear = document.getElementById("btn-clear");
   btnClear.addEventListener("click", () => {
     rewriteTable();
+    // 式の答え部分も消す
+    const textBox = document.getElementById("text-box");
+    textBox.innerText = `${multiplicandNumber}×${multiplierNumber}=`;
+    // 答えを見たフラグをリセット（再チャレンジ可能に）
+    showed_answer_flag = false;
     se.reset.play();
   });
 
@@ -81,6 +87,7 @@ export function hissan() {
   function questionCreate() {
     mondai_flag = true;
     hint_flag = false;
+    showed_answer_flag = false; // 新しい問題なので答えを見たフラグをリセット
     se.set.currentTime = 0;
     se.set.play();
     multiplicandNumber = 0; //被乗数の初期化
@@ -208,6 +215,7 @@ export function hissan() {
       }
       se.seikai2.currentTime = 0;
       se.seikai2.play();
+      showed_answer_flag = true; // 答えを見たフラグを立てる
       answerWrite();
     },
     false
@@ -353,8 +361,14 @@ export function hissan() {
     if (myAnswer == collectAnswer) {
       se.seikai2.currentTime = 0;
       se.seikai2.play();
-      addCoin(); // コインを追加してローカルストレージに保存
-      alert("正解");
+      if (showed_answer_flag === true) {
+        // 答えを見た後でも正解なら褒めるが、コインは増やさない
+        alert("正解です。答えを見た場合は、コインはふえません。");
+      } else {
+        // 答えを見ずに正解した場合のみコインを追加
+        addCoin(); // コインを追加してローカルストレージに保存
+        alert("正解");
+      }
       mondai_flag = false;
     } else {
       se.alert.currentTime = 0;
