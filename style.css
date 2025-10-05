@@ -3,15 +3,142 @@ body {
   font-family: "UD デジタル 教科書体 NK-B";
   margin: 0;
   padding: 0;
-  overflow-x: hidden; /* 横スクロールを防止 */
+  overflow-x: hidden;
+  /* 横スクロールを防止 */
+  background: linear-gradient(180deg, #fff5f5 0%, #ffe4e1 50%, #ffd4cc 100%);
+  min-height: 100vh;
+  position: relative;
+}
+
+/* メインコンテンツ */
+main {
+  position: relative;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  margin: 5px;
+  padding: 8px;
+  box-shadow: 0 10px 30px rgba(255, 105, 97, 0.3);
+  max-width: none;
+}
+
+/* ヘッダースタイル */
+header {
+  position: relative;
+  z-index: 1;
+  color: #d63447;
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+  font-weight: bold;
+  background: linear-gradient(135deg, #ffffff 0%, #ffe4e1 100%);
+  border-radius: 8px;
+  margin: 20px 15px 5px 15px;
+  padding: 5px 10px;
+  box-shadow: 0 3px 10px rgba(255, 105, 97, 0.2);
+  border: 2px solid #ffb3b3;
+  line-height: 1.2;
+}
+
+/* 問題種類選択エリア */
+.bg-body-secondary {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 228, 225, 0.95) 100%) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 5px 15px rgba(255, 105, 97, 0.15) !important;
+  border: 2px solid #ffcccc !important;
+}
+
+/* ボタンスタイル */
+.btn-danger {
+  background: linear-gradient(135deg, #ff6961 0%, #ff5252 100%);
+  border: 2px solid #ff4444;
+  box-shadow: 0 3px 8px rgba(255, 105, 97, 0.3);
+  transition: all 0.2s ease;
+}
+
+.btn-danger:hover {
+  background: linear-gradient(135deg, #ff5252 0%, #ff4444 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 12px rgba(255, 105, 97, 0.4);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #ff9999 0%, #ff8888 100%);
+  border: 2px solid #ff7777;
+  box-shadow: 0 3px 8px rgba(255, 136, 136, 0.3);
+  transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #ff8888 0%, #ff7777 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 12px rgba(255, 136, 136, 0.4);
+}
+
+.btn-warning {
+  background: linear-gradient(135deg, #ffcc99 0%, #ffbb88 100%);
+  border: 2px solid #ffaa77;
+  color: #8b4513;
+  box-shadow: 0 3px 8px rgba(255, 170, 119, 0.3);
+  transition: all 0.2s ease;
+}
+
+.btn-warning:hover {
+  background: linear-gradient(135deg, #ffbb88 0%, #ffaa77 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 12px rgba(255, 170, 119, 0.4);
+  color: #8b4513;
+}
+
+.btn-success {
+  background: linear-gradient(135deg, #90ee90 0%, #7ada7a 100%);
+  border: 2px solid #6bc96b;
+  box-shadow: 0 3px 8px rgba(144, 238, 144, 0.3);
+  transition: all 0.2s ease;
+}
+
+.btn-success:hover {
+  background: linear-gradient(135deg, #7ada7a 0%, #6bc96b 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 12px rgba(144, 238, 144, 0.4);
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, #d0d0d0 0%, #c0c0c0 100%);
+  border: 2px solid #b0b0b0;
+  box-shadow: 0 3px 8px rgba(192, 192, 192, 0.3);
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background: linear-gradient(135deg, #c0c0c0 0%, #b0b0b0 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 12px rgba(192, 192, 192, 0.4);
+}
+
+.btn-info {
+  background: linear-gradient(135deg, #87ceeb 0%, #6eb8dd 100%);
+  border: 2px solid #5ca9cc;
+  box-shadow: 0 3px 8px rgba(135, 206, 235, 0.3);
+  transition: all 0.2s ease;
+}
+
+.btn-info:hover {
+  background: linear-gradient(135deg, #6eb8dd 0%, #5ca9cc 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 12px rgba(135, 206, 235, 0.4);
 }
 
 #text-box {
-  height: max(40px, 3.5vw);
-  line-height: max(40px, 3.5vw);
-  font-size: max(20px, 2vw);
-  letter-spacing: 0.2vw;
-  background-color: antiquewhite;
+  min-height: max(50px, 4vw);
+  font-size: max(60px, 4.2vw);
+  letter-spacing: 0.5vw;
+  background: linear-gradient(135deg, #fff 0%, #ffe4e1 100%);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(255, 105, 97, 0.25);
+  border: 2px solid #ffb3b3;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #answer-box {
@@ -37,20 +164,53 @@ td {
   border-left: dotted gray 1px;
 }
 
+/* 1桁かける場合：4-6行目を非表示 */
+#calc-table.multiplier-1digit tr:nth-child(4) td,
+#calc-table.multiplier-1digit tr:nth-child(5) td,
+#calc-table.multiplier-1digit tr:nth-child(6) td {
+  height: 0px !important;
+  border-bottom: none !important;
+}
+
+/* 2桁かける場合：正方形を保つ */
+#calc-table.multiplier-2digit tr:nth-child(3) td,
+#calc-table.multiplier-2digit tr:nth-child(5) td {
+  height: 20px;
+  max-height: 20px;
+  overflow: hidden;
+  line-height: 1;
+}
+
+#calc-table.multiplier-2digit tr:nth-child(4) td,
+#calc-table.multiplier-2digit tr:nth-child(6) td {
+  height: max(50px, 3vw);
+  max-height: max(50px, 3vw);
+}
+
 .num {
   width: max(50px, 2.8vw);
   height: max(50px, 2.8vw);
   line-height: max(50px, 2.8vw);
-  border: solid 1px black;
-  border-radius: 10%;
+  border: solid 2px #ff9999;
+  border-radius: 12px;
   text-align: center;
   vertical-align: middle;
   cursor: pointer;
+  background: linear-gradient(135deg, #ffffff 0%, #fff0f0 100%);
+  box-shadow: 0 2px 5px rgba(255, 105, 97, 0.2);
+  transition: all 0.2s ease;
 }
 
-td .num{
-  margin:auto;
+.num:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(255, 105, 97, 0.3);
+  background: linear-gradient(135deg, #ffe4e1 0%, #ffcccb 100%);
 }
+
+td .num {
+  margin: auto;
+}
+
 tr:nth-child(1) td {
   border-top: dotted gray 1px;
 }
@@ -78,7 +238,7 @@ tr:nth-child(7) div {
   height: 20px;
   line-height: 20px;
   font-size: 10px;
-  margin:auto;
+  margin: auto;
 }
 
 /* 便宜上テーブルセルの２列目を非表示にする。*/
@@ -97,13 +257,11 @@ td:nth-child(8) {
 }
 
 .diagonal {
-  background-image: linear-gradient(
-    to right top,
-    transparent calc(50% - 0.5px),
-    red 50%,
-    red calc(50% + 0.5px),
-    transparent calc(50% + 1px)
-  ) !important;
+  background-image: linear-gradient(to right top,
+      transparent calc(50% - 0.5px),
+      red 50%,
+      red calc(50% + 0.5px),
+      transparent calc(50% + 1px)) !important;
 }
 
 img {
@@ -112,14 +270,34 @@ img {
   margin: 0.1vw;
 }
 
+/* フッタースタイル */
+footer {
+  position: relative;
+  z-index: 1;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 228, 225, 0.95) 100%);
+  border-radius: 10px;
+  margin: 5px;
+  padding: 10px;
+  box-shadow: 0 5px 15px rgba(255, 105, 97, 0.15);
+  border-top: 2px solid #ffcccc;
+}
+
 #score-pallet {
-  max-height: 10vw; /* コイン3段分が表示できる高さ（コイン3vw×3 + 余白） */
-  overflow-y: auto; /* 縦方向にスクロール可能にする */
-  border: 2px solid #ddd; /* 境界線を追加（エリアを視覚的にわかりやすく） */
-  border-radius: 8px; /* 角を丸くする */
-  padding: 5px; /* 内側に余白を追加 */
-  background-color: #f8f9fa; /* 背景色を薄いグレーに */
-  min-height: 4vw; /* 最小高さを設定 */
+  max-height: 10vw;
+  /* コイン3段分が表示できる高さ（コイン3vw×3 + 余白） */
+  overflow-y: auto;
+  /* 縦方向にスクロール可能にする */
+  border: 2px solid #ffb3b3;
+  /* 境界線を追加（エリアを視覚的にわかりやすく） */
+  border-radius: 12px;
+  /* 角を丸くする */
+  padding: 5px;
+  /* 内側に余白を追加 */
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 228, 225, 0.95) 100%);
+  /* 背景色を薄いピンクに */
+  min-height: 4vw;
+  /* 最小高さを設定 */
+  box-shadow: inset 0 2px 5px rgba(255, 105, 97, 0.1);
 }
 
 /* タブレット用（iPad等）の最適化 */
@@ -129,9 +307,9 @@ img {
   }
 
   #text-box {
-    height: max(35px, 3vw);
-    line-height: max(35px, 3vw);
-    font-size: max(18px, 1.8vw);
+    min-height: max(45px, 3.5vw);
+    font-size: max(40px, 4vw);
+    padding: 4px;
   }
 
   td {
@@ -146,7 +324,8 @@ img {
   }
 
   #score-pallet {
-    max-height: 10vw; /* タブレットでもコイン3段分を表示 */
+    max-height: 10vw;
+    /* タブレットでもコイン3段分を表示 */
   }
 }
 
@@ -154,12 +333,14 @@ img {
 @media screen and (min-width: 1025px) {
   body {
     font-size: 1.4rem;
+    max-width: 1200px;
+    margin: 0 auto;
   }
 
   #text-box {
-    height: 40px;
-    line-height: 40px;
-    font-size: 22px;
+    min-height: 50px;
+    font-size: 50px;
+    padding: 4px;
   }
 
   td {
@@ -180,7 +361,15 @@ img {
   }
 
   #score-pallet {
-    max-height: 10vw; /* デスクトップでもコイン3段分を表示（vw基準） */
+    max-height: 10vw;
+    /* デスクトップでもコイン3段分を表示（vw基準） */
+  }
+
+  /* デスクトップでは2桁かける場合も50px固定 */
+  #calc-table.multiplier-2digit tr:nth-child(4) td,
+  #calc-table.multiplier-2digit tr:nth-child(6) td {
+    height: 50px;
+    max-height: 50px;
   }
 }
 

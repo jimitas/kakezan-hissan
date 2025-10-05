@@ -15,6 +15,15 @@ export function createSelectBox() {
   ];
 
   const select = document.getElementById("select_question_mode");
+
+  // プレースホルダーオプションを追加
+  const placeholder = document.createElement("option");
+  placeholder.value = "";
+  placeholder.textContent = "問題の種類を選んでください";
+  placeholder.disabled = true;
+  placeholder.selected = true;
+  select.appendChild(placeholder);
+
   for (let i = 0; i < questionMode.length; i++) {
     const option = document.createElement("option");
     option.value = i;

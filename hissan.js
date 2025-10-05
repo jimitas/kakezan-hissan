@@ -31,6 +31,21 @@ export function hissan() {
   numberSet();
   loadCoins(); // ページ読み込み時にコインを復元
 
+  // トースト通知を表示（Bootstrap 5のトースト機能を使用）
+  setTimeout(() => {
+    const toastElement = document.getElementById('infoToast');
+    if (toastElement) {
+      if (typeof bootstrap !== 'undefined' && bootstrap.Toast) {
+        const toast = new bootstrap.Toast(toastElement);
+        toast.show();
+      } else {
+        console.error('Bootstrap Toast is not available');
+      }
+    } else {
+      console.error('Toast element not found');
+    }
+  }, 500);
+
   const select = document.getElementById("select_question_mode");
   select.addEventListener("change", () => {
     se.move2.currentTime = 0;
@@ -42,6 +57,14 @@ export function hissan() {
   btnQuestion.addEventListener(
     "click",
     () => {
+      // 問題の種類が選択されているかチェック
+      const select = document.getElementById("select_question_mode");
+      if (select.value === "") {
+        se.alert.currentTime = 0;
+        se.alert.play();
+        alert("問題の種類を選んでください。");
+        return;
+      }
       questionCreate();
     },
     false
@@ -129,20 +152,17 @@ export function hissan() {
       TBL.rows[i].cells[5].style.width = selectIndex < 4 ? "0px" : "10px";
       TBL.rows[i].cells[7].style.width = selectIndex < 4 ? "0px" : "10px";
     }
-    // かける数の桁数によるレイアウト調整
+    // かける数の桁数によるレイアウト調整（CSSクラスで制御）
     if (multiplierDigit[selectIndex] === 1) {
-      for (let i = 2; i < 6; i++) {
-        for (let j = 0; j < 9; j++) {
-          TBL.rows[i].cells[j].style.height = "0px";
-          TBL.rows[i].cells[j].style.borderBottom = multiplierDigit[selectIndex] === 1 ? "none" : "dotted gray 1px";
-        }
-      }
+      TBL.classList.remove('multiplier-2digit');
+      TBL.classList.add('multiplier-1digit');
     } else {
-      const styleHeight = ["20px", "max(50px, 4vw)", "20px", "max(50px, 4vw)"];
+      TBL.classList.remove('multiplier-1digit');
+      TBL.classList.add('multiplier-2digit');
+      // 2桁の場合、ボーダーのみJavaScriptで設定（CSSでは制御しづらいため）
       const styleBorder = ["dotted gray 1px", "dotted gray 1px", "dotted gray 1px", "solid black 1px"];
       for (let i = 2; i < 6; i++) {
         for (let j = 0; j < 9; j++) {
-          TBL.rows[i].cells[j].style.height = styleHeight[i - 2];
           TBL.rows[i].cells[j].style.borderBottom = styleBorder[i - 2];
         }
       }
