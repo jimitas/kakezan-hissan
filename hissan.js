@@ -49,7 +49,7 @@ export function hissan() {
 
   const select = document.getElementById("select_question_mode");
   select.addEventListener("change", () => {
-    se.move2.currentTime = 0;
+    se.move2.stop();
     se.move2.play();
     selectIndex = Number(select.value);
   });
@@ -61,7 +61,7 @@ export function hissan() {
       // 問題の種類が選択されているかチェック
       const select = document.getElementById("select_question_mode");
       if (select.value === "") {
-        se.alert.currentTime = 0;
+        se.alert.stop();
         se.alert.play();
         alert("問題の種類を選んでください。");
         return;
@@ -88,7 +88,7 @@ export function hissan() {
     mondai_flag = true;
     hint_flag = false;
     showed_answer_flag = false; // 新しい問題なので答えを見たフラグをリセット
-    se.set.currentTime = 0;
+    se.set.stop();
     se.set.play();
     multiplicandNumber = 0; //被乗数の初期化
     multiplierNumber = 0; //乗数の初期化
@@ -208,12 +208,12 @@ export function hissan() {
     "click",
     () => {
       if (mondai_flag === false) {
-        se.alert.currentTime = 0;
+        se.alert.stop();
         se.alert.play();
         alert("「問題を出す」をおしてください。");
         return;
       }
-      se.seikai2.currentTime = 0;
+      se.seikai2.stop();
       se.seikai2.play();
       showed_answer_flag = true; // 答えを見たフラグを立てる
       answerWrite();
@@ -227,18 +227,18 @@ export function hissan() {
     "click",
     () => {
       if (mondai_flag === false) {
-        se.alert.currentTime = 0;
+        se.alert.stop();
         se.alert.play();
         alert("「問題を出す」をおしてください。");
         return;
       }
       if (multiplierDigit[selectIndex] == 1) {
-        se.alert.currentTime = 0;
+        se.alert.stop();
         se.alert.play();
         alert("かける数が２けたのときにヒントが出されます。");
         return;
       }
-      se.seikai1.currentTime = 0;
+      se.seikai1.stop();
       se.seikai1.play();
       if (hint_flag === false) {
         hintWrite();
@@ -359,7 +359,7 @@ export function hissan() {
       return;
     }
     if (myAnswer == collectAnswer) {
-      se.seikai2.currentTime = 0;
+      se.seikai2.stop();
       se.seikai2.play();
       if (showed_answer_flag === true) {
         // 答えを見た後でも正解なら褒めるが、コインは増やさない
@@ -440,7 +440,7 @@ export function hissan() {
       if (event.target.className.match(/droppable-elem/)) {
         dragged.parentNode.removeChild(dragged);
         event.target.appendChild(dragged);
-        se.pi.currentTime = 0;
+        se.pi.stop();
         se.pi.play();
         numberSet();
         myAnswerUpdate();
@@ -483,7 +483,7 @@ export function hissan() {
       // if (newParentElem.className == "droppable-elem") {
       newParentElem.appendChild(droppedElem);
     }
-    se.pi.currentTime = 0;
+    se.pi.stop();
     se.pi.play();
     numberSet();
     myAnswerUpdate();
