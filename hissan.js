@@ -332,7 +332,7 @@ export function hissan() {
     // NaNが発生した場合（答えを見た後に数字をドラッグした場合など）
     if (isNaN(myAnswer)) {
       textBox.innerText = `${multiplicandNumber}×${multiplierNumber}=`;
-      se.alert.currentTime = 0;
+      se.alert.stop();
       se.alert.play();
       alert("「消す」をおしてから、数字をドラッグしてください。");
       return;
@@ -353,7 +353,7 @@ export function hissan() {
   function checkAnswer() {
     myAnswerUpdate();
     if (mondai_flag === false) {
-      se.alert.currentTime = 0;
+      se.alert.stop();
       se.alert.play();
       alert("「問題を出す」をおしてください。");
       return;
@@ -371,25 +371,27 @@ export function hissan() {
       }
       mondai_flag = false;
     } else {
-      se.alert.currentTime = 0;
+      se.alert.stop();
       se.alert.play();
       alert("もう一度！");
     }
   }
 
-  //関数　数字のセット
+  //関数　数字のセット（初期化時のみ呼び出し）
   function numberSet() {
     //数パレット内の数字を一旦消去
-    var ele = document.getElementById("num-pallet");
+    const ele = document.getElementById("num-pallet");
     while (ele.firstChild) {
       ele.removeChild(ele.firstChild);
     }
 
+    // 数字0～9を追加
     for (let i = 0; i < 10; i++) {
       const div = document.createElement("div");
       div.innerHTML = i;
       div.setAttribute("class", "num draggable-elem");
       div.setAttribute("draggable", "true");
+      div.dataset.isOriginal = "true"; // オリジナルの数字としてマーク
       if (i === 0) {
         div.addEventListener("click", () => {
           if (div.classList.contains("diagonal")) {
@@ -399,15 +401,129 @@ export function hissan() {
           }
         });
       }
-      div.addEventListener("touchstart", touchStartEvent, false);
-      div.addEventListener("touchmove", touchMoveEvent, false);
-      div.addEventListener("touchend", touchEndEvent, false);
       document.getElementById("num-pallet").appendChild(div);
     }
   }
 
+  // タッチイベント用の変数（イベントデリゲーションの前に定義）
+  let touchDraggedElem = null;
+  let touchOriginalParent = null;
+
+  //ドラッグ開始の操作
+  function touchStartEvent(event) {
+    //タッチによる画面スクロールを止める
+    event.preventDefault();
+
+    const target = event.target;
+    // オリジナルの数字パレットの場合、クローンを作成
+    if (target.dataset.isOriginal === "true") {
+      touchDraggedElem = target.cloneNode(true);
+      touchDraggedElem.dataset.isOriginal = "false";
+      touchDraggedElem.classList.add("num", "draggable-elem");
+      document.body.appendChild(touchDraggedElem);
+      touchOriginalParent = null;
+    } else {
+      // 既に配置された数字の場合
+      touchDraggedElem = target;
+      touchOriginalParent = target.parentNode;
+    }
+
+    // 初期位置を設定
+    const touch = event.changedTouches[0];
+    touchDraggedElem.style.position = "fixed";
+    touchDraggedElem.style.zIndex = "10000";
+    touchDraggedElem.style.pointerEvents = "none";
+    touchDraggedElem.style.left = (touch.clientX - touchDraggedElem.offsetWidth / 2) + "px";
+    touchDraggedElem.style.top = (touch.clientY - touchDraggedElem.offsetHeight / 2) + "px";
+  }
+
+  //ドラッグ中の操作
+  function touchMoveEvent(event) {
+    event.preventDefault();
+    if (!touchDraggedElem) return;
+
+    const touch = event.changedTouches[0];
+    // transformを使用してGPUアクセラレーションを活用
+    const x = touch.clientX - touchDraggedElem.offsetWidth / 2;
+    const y = touch.clientY - touchDraggedElem.offsetHeight / 2;
+    touchDraggedElem.style.left = x + "px";
+    touchDraggedElem.style.top = y + "px";
+  }
+
+  //ドラッグ終了後の操作
+  function touchEndEvent(event) {
+    event.preventDefault();
+    if (!touchDraggedElem) return;
+
+    //ドラッグ中の操作のために変更していたスタイルを元に戻す
+    touchDraggedElem.style.position = "";
+    touchDraggedElem.style.zIndex = "";
+    touchDraggedElem.style.pointerEvents = "";
+    touchDraggedElem.style.left = "";
+    touchDraggedElem.style.top = "";
+
+    //ドロップした位置にあるドロップ可能なエレメントに親子付けする
+    const touch = event.changedTouches[0];
+    const newParentElem = document.elementFromPoint(touch.clientX, touch.clientY);
+
+    // ドロップ先がdroppable-elemクラスを持っている場合のみ、要素を移動
+    // ただし、#num-palletには戻せない（一度ドロップした数字はパレットに戻らない）
+    const isNumPallet = newParentElem && (newParentElem.id === "num-pallet" || newParentElem.closest("#num-pallet"));
+    const isGomibako = newParentElem && (newParentElem.tagName === "IMG" && newParentElem.alt === "ゴミ箱");
+
+    // ゴミ箱にドロップした場合は削除
+    if (isGomibako) {
+      if (touchDraggedElem.parentNode) {
+        touchDraggedElem.parentNode.removeChild(touchDraggedElem);
+      }
+      se.pi.stop();
+      se.pi.play();
+      myAnswerUpdate();
+    } else if (newParentElem && newParentElem.className.match(/droppable-elem/) && !isNumPallet) {
+      newParentElem.appendChild(touchDraggedElem);
+      se.pi.stop();
+      se.pi.play();
+      myAnswerUpdate();
+    } else {
+      // ドロップ先が無効な場合（またはnum-palletに戻そうとした場合）
+      if (touchOriginalParent && touchOriginalParent.id !== "num-pallet") {
+        // 元の場所に戻す（ただし元の場所がnum-pallet以外の場合のみ）
+        touchOriginalParent.appendChild(touchDraggedElem);
+      } else {
+        // クローンの場合、またはnum-palletに戻そうとした場合は削除
+        if (touchDraggedElem.parentNode) {
+          touchDraggedElem.parentNode.removeChild(touchDraggedElem);
+        }
+      }
+    }
+
+    touchDraggedElem = null;
+    touchOriginalParent = null;
+  }
+
+  // イベントデリゲーション：document.body全体でタッチイベントを管理
+  // これにより、パレット内の数字もドロップ後の数字も両方ドラッグできる
+  document.body.addEventListener("touchstart", function(event) {
+    if (event.target.classList.contains("draggable-elem")) {
+      touchStartEvent(event);
+    }
+  }, { passive: false });
+
+  document.body.addEventListener("touchmove", function(event) {
+    if (touchDraggedElem) {
+      touchMoveEvent(event);
+    }
+  }, { passive: false });
+
+  document.body.addEventListener("touchend", function(event) {
+    if (touchDraggedElem) {
+      touchEndEvent(event);
+    }
+  }, { passive: false });
+
   //マウスでのドラッグを可能にする。
-  var dragged;
+  let dragged;
+  let draggedClone; // ドラッグ中のクローン要素
 
   /* events fired on the draggable target */
   document.addEventListener("drag", function (event) {}, false);
@@ -415,8 +531,19 @@ export function hissan() {
   document.addEventListener(
     "dragstart",
     function (event) {
-      // store a ref. on the dragged elem
-      dragged = event.target;
+      const target = event.target;
+      // オリジナルの数字パレットからドラッグした場合、クローンを作成
+      if (target.classList.contains("draggable-elem") && target.dataset.isOriginal === "true") {
+        draggedClone = target.cloneNode(true);
+        draggedClone.dataset.isOriginal = "false"; // クローンはオリジナルではない
+        // クローンはドラッグ可能にする
+        draggedClone.setAttribute("draggable", "true");
+        draggedClone.classList.add("num", "draggable-elem");
+        dragged = draggedClone;
+      } else {
+        // 既に配置された数字をドラッグする場合
+        dragged = target;
+      }
     },
     false
   );
@@ -436,58 +563,37 @@ export function hissan() {
     function (event) {
       // prevent default action (open as link for some elements)
       event.preventDefault();
-      // move dragged elem to the selected drop target
-      if (event.target.className.match(/droppable-elem/)) {
-        dragged.parentNode.removeChild(dragged);
-        event.target.appendChild(dragged);
+
+      // ドロップ先が#num-palletでないことを確認（一度ドロップした数字はパレットに戻らない）
+      const isNumPallet = event.target.id === "num-pallet" || event.target.closest("#num-pallet");
+      const isGomibako = event.target.tagName === "IMG" && event.target.alt === "ゴミ箱";
+
+      // ゴミ箱にドロップした場合は削除
+      if (isGomibako) {
+        if (dragged && dragged.parentNode) {
+          dragged.parentNode.removeChild(dragged);
+        }
         se.pi.stop();
         se.pi.play();
-        numberSet();
         myAnswerUpdate();
       }
+      // move dragged elem to the selected drop target
+      else if (event.target.className.match(/droppable-elem/) && !isNumPallet) {
+        // クローンの場合はappend、既存要素の場合は移動
+        if (dragged.dataset.isOriginal === "false" && !dragged.parentNode) {
+          event.target.appendChild(dragged);
+        } else if (dragged.dataset.isOriginal === "false" || dragged.dataset.isOriginal !== "true") {
+          dragged.parentNode.removeChild(dragged);
+          event.target.appendChild(dragged);
+        }
+        se.pi.stop();
+        se.pi.play();
+        myAnswerUpdate();
+      }
+      draggedClone = null;
     },
     false
   );
-
-  //ドラッグ開始の操作
-  function touchStartEvent(event) {
-    //タッチによる画面スクロールを止める
-    event.preventDefault();
-  }
-
-  //ドラッグ中の操作
-  function touchMoveEvent(event) {
-    event.preventDefault();
-    //ドラッグ中のアイテムをカーソルの位置に追従
-    var draggedElem = event.target;
-    var touch = event.changedTouches[0];
-    event.target.style.position = "fixed";
-    event.target.style.top = touch.pageY - window.pageYOffset - draggedElem.offsetHeight / 2 + "px";
-    event.target.style.left = touch.pageX - window.pageXOffset - draggedElem.offsetWidth / 2 + "px";
-  }
-
-  //ドラッグ終了後の操作
-  function touchEndEvent(event) {
-    event.preventDefault();
-    //ドラッグ中の操作のために変更していたスタイルを元に戻す
-    var droppedElem = event.target;
-    droppedElem.style.position = "";
-    event.target.style.top = "";
-    event.target.style.left = "";
-    //ドロップした位置にあるドロップ可能なエレメントに親子付けする
-    var touch = event.changedTouches[0];
-    //スクロール分を加味した座標に存在するエレメントを新しい親とする
-    var newParentElem = document.elementFromPoint(touch.pageX - window.pageXOffset, touch.pageY - window.pageYOffset);
-
-    if (newParentElem.className.match(/droppable-elem/)) {
-      // if (newParentElem.className == "droppable-elem") {
-      newParentElem.appendChild(droppedElem);
-    }
-    se.pi.stop();
-    se.pi.play();
-    numberSet();
-    myAnswerUpdate();
-  }
 
   // ローカルストレージからコイン数を読み込み、画面に表示
   function loadCoins() {
@@ -518,7 +624,7 @@ export function hissan() {
   // コインをリセット（計算問題による確認付き）
   const btnResetCoins = document.getElementById("btn-reset-coins");
   btnResetCoins.addEventListener("click", () => {
-    se.alert.currentTime = 0;
+    se.alert.stop();
     se.alert.play();
 
     // 3桁×2桁のランダムな計算問題を生成
@@ -543,7 +649,7 @@ export function hissan() {
       se.reset.play();
       alert("正解です！コインをリセットしました。");
     } else {
-      se.alert.currentTime = 0;
+      se.alert.stop();
       se.alert.play();
       alert(`不正解です。正しい答えは ${correctAnswer} でした。\nコインはリセットされませんでした。`);
     }
